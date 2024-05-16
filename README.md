@@ -22,7 +22,7 @@ j: Ensemble member index
 
 The trained networks are saved in the folder "Neural_Nets"
 
-For example, to train the LSTM NN on 1000 time units of data for 500 epochs with ensemble index 3 run:python master_train_qg.py 'LSTM' 1000 500 3
+For example, to train the LSTM on 1000 time units of data for 500 epochs with ensemble index 3 run: python master_train_qg.py 'LSTM' 1000 500 3
 
 
 TESTING
