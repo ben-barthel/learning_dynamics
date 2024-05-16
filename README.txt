@@ -33,4 +33,4 @@ Nj: Ensemble size. (you must train models with index j = 1-Nj first)
 
 The ML predictions are saved in the folder "ML_Results"
 
-For example to test an ensemble of 6 VRNN models trained on 1000 time units of data for 500 epochs run: python master_test_qg.py 'VRNN' 1000 500 7
+For example to test an ensemble of 6 VRNN models trained on 1000 time units of data for 500 epochs run: python master_test_qg.py 'VRNN' 1000 500 6
