@@ -6,8 +6,8 @@ The data can be found at: www.data.com, and the following codes assume the data 
 ==================================================================================
 TRAINING
 ==================================================================================
-To train one iteration of the ML model, run the script ML_Code/python master_train_qg.py
-master_train_qg.py takes 4 user inputs. m T N j
+To train one iteration of the ML model, run the script ML_Code/python master_train_qg.py.
+The script master_train_qg.py takes 4 user inputs. m T N j
 
 
 m: model architecture: "LSTM" "VAE-RNN", "STORN", or "VRNN"
@@ -23,8 +23,8 @@ For example, to train the LSTM NN on 1000 time units of data for 500 epochs with
 ==================================================================================
 TESTING
 ==================================================================================
-To test an ensemble of ML models, run the script ML_Code/python master_test_qg.py
-master_test_qg.py takes 4 user inputs. m T N Nj
+To test an ensemble of ML models, run the script ML_Code/python master_test_qg.py.
+The script master_test_qg.py takes 4 user inputs. m T N Nj
 
 
 m: model architecture: "LSTM" "VAE-RNN", "STORN", or "VRNN"
