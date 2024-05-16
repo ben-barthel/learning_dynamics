@@ -9,7 +9,7 @@ To train one iteration of the ML model, run the script ML_Code/python master_tra
 master_train_qg.py takes 4 user inputs. m T N j
 
 
-m: model architecture: only one option "LSTM" "VAE-RNN", "STORN", or "VRNN"
+m: model architecture: "LSTM" "VAE-RNN", "STORN", or "VRNN"
 T: length of training data: T_{train} eg. 1,000 to reproduce results from paper (max 10,000 available)
 N: number of epochs
 j: Ensemble member index
@@ -26,11 +26,11 @@ To test an ensemble of ML models, run the script ML_Code/python master_test_qg.p
 master_test_qg.py takes 4 user inputs. m T N Nj
 
 
-m: model architecture: only one option "LSTM" "VAE-RNN", "STORN", or "VRNN"
+m: model architecture: "LSTM" "VAE-RNN", "STORN", or "VRNN"
 T: length of training data: T_{train} eg. 1,000 to reproduce results from paper
 N: number of epochs
 Nj: Ensemble size. (you must train models with index j = 1-Nj first)
 
 The ML predictions are saved in the folder "ML_Results"
 
-For example to train an ensemble of 6 VRNN models trained on 1000 time units of data for 500 epochs run: python master_test_qg.py 'VRNN' 1000 500 7
+For example to test an ensemble of 6 VRNN models trained on 1000 time units of data for 500 epochs run: python master_test_qg.py 'VRNN' 1000 500 7
