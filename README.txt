@@ -1,5 +1,9 @@
 This repository includes the code needed to train and test the machine learning models described in Barthel Sorensen et.al. 2024. The code is implemented in Python using TensorFlow. 
-The data can be found at: www.data.com, and the following codes assume the data is located in the folder "ML_Data"
+
+==================================================================================
+DATA
+==================================================================================
+The training and testing trajectories can be found at: www.data.com. The training data is contained in the folder "QG_beta2.0_rdrag0.1_realization1_24x24", it contains the reference, coarse, and spectrally corrected nudged trajectories of length 10,000 time units. The test data is contained in "QG_beta2.0_rdrag0.1_realization2_24x24" it contains the reference and coarse data of length 34,000 time units. The following codes assume that these two folders are located in the folder "ML_Data".
 
 
 ==================================================================================
