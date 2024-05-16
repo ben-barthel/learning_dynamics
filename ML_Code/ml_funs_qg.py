@@ -270,9 +270,13 @@ def ML_Test_Ensemble(model_type,case_name,Nens,Nepochs,dt_ml,basis_type,compute_
          
     # ML Spectrum
     spectrum_ML = np.zeros((Nens,test_times,2),dtype=float)
+    
+    # Zonal Mean
     Psi_ML = np.zeros((Nens,Ny,test_times,2),dtype=float)
+    Psi_ref = np.zeros((Ny,test_times,2),dtype=float)
+    Psi_coarse = np.zeros((Ny,test_times,2),dtype=float)
     indEE_ML = np.zeros((Nens,test_times,2),dtype=float)
-    #indEE_ref = np.zeros((test_times,2),dtype=float)
+    indEE_ref = np.zeros((test_times,2),dtype=float)
 
     
     time_start = 0
@@ -351,12 +355,16 @@ def ML_Test_Ensemble(model_type,case_name,Nens,Nepochs,dt_ml,basis_type,compute_
     spectrum_coarse =  np.mean(Sc,axis=(0,1))
     spectrum_train =  np.mean(St,axis=(0,1))
     
+    
+    
+    # Zonal Mean
+    Psi_ref = np.sum(psi_ref,axis=1)/float(Nx)
+    Psi_coarse = np.sum(psi_coarse,axis=1)/float(Nx)
+    
     # EE Indicator
     indEE_ref = np.sum(np.abs(psi_ref),axis=(0,1))/float(Nx*Ny)
     
     # Pdf of area-over-threshold
-    
-    
     Npt  = int(25)
     tleft  = 0
     tright = 4
@@ -479,7 +487,7 @@ def ML_Test_Ensemble(model_type,case_name,Nens,Nepochs,dt_ml,basis_type,compute_
     
     # Save Stats
     save_file = "../ML_Results/"+case_name +"_"+ model_type + "_" + basis_type+"_loss_L2_epochs_"+str(Nepochs) + "_dt_" +str(dt_ml) + "_T_" +str(T) + "_Nens_" + str(Nens) + "_Ensemble_Stats_Big.mat"
-    hdf5storage.savemat(save_file2,{"pdf_xaxis":pdf_xaxis,'test_times':test_times,"psi_pdf_ML":psi_pdf_ML,"psi_rpdf_ML":psi_rpdf_ML,"psi_rpdf_ref":psi_rpdf_ref,"psi_rpdf_coarse":psi_rpdf_coarse,"Psi_ML":Psi_ML,"f":f,"f_train":f_train,"f_i":f_i,"spectrum_ref":spectrum_ref,"spectrum_coarse":spectrum_coarse,"spectrum_ML":spectrum_ML,"spectrum_train":spectrum_train,"R_ML":R_ML,"R_ref":R_ref,"R_coarse":R_coarse,"R_train":R_train,"S_ML":S_ML,"S_ref":S_ref,"S_coarse":S_coarse,"S_train":S_train,'dt_ml':dt_ml,'dt_i':dt_i,'thresh':thresh,'aot_ML':aot_ML,'aot_ref':aot_ref,'aot_coarse':aot_coarse,'indEE_ML':indEE_ML,'indEE_ref':indEE_ref},format='7.3',do_compression=True)
+    hdf5storage.savemat(save_file2,{"pdf_xaxis":pdf_xaxis,'test_times':test_times,"psi_pdf_ML":psi_pdf_ML,"psi_rpdf_ML":psi_rpdf_ML,"psi_rpdf_ref":psi_rpdf_ref,"psi_rpdf_coarse":psi_rpdf_coarse,"Psi_ML":Psi_ML,"Psi_ref":Psi_ref,"Psi_coarse":Psi_coarse,"f":f,"f_train":f_train,"f_i":f_i,"spectrum_ref":spectrum_ref,"spectrum_coarse":spectrum_coarse,"spectrum_ML":spectrum_ML,"spectrum_train":spectrum_train,"R_ML":R_ML,"R_ref":R_ref,"R_coarse":R_coarse,"R_train":R_train,"S_ML":S_ML,"S_ref":S_ref,"S_coarse":S_coarse,"S_train":S_train,'dt_ml':dt_ml,'dt_i':dt_i,'thresh':thresh,'aot_ML':aot_ML,'aot_ref':aot_ref,'aot_coarse':aot_coarse,'indEE_ML':indEE_ML,'indEE_ref':indEE_ref},format='7.3',do_compression=True)
     print('Ensemble Stats Saved!')
     
     return
