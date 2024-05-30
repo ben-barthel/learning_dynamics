@@ -34,25 +34,21 @@ from loss_funs_qg import *
 def get_model(model_type,used_features,loss_data):
     
     
-    if model_type == 'LSTM' or model_type == 'LSTMgeo':
+    if model_type == 'LSTM':
         print("Standard LSTM Network")
         network = get_lstm(used_features,loss_data)
     
-    if model_type == 'VLSTM7':
-        print("Variational LSTM Network #7")
-        network = get_vlstm7(used_features,loss_data)
+    if model_type == 'VAE-RNN':
+        print("VAE LSTM Network")
+        network = get_vaernn(used_features,loss_data)
         
-    if model_type == 'STORN1':
-        print("Variational STORN Network #1")
-        network = get_storn1(used_features,loss_data)
-   
-    
+    if model_type == 'STORN':
+        print("STORN LSTM Network")
+        network = get_storn(used_features,loss_data)
         
-        
-        
-    if model_type == 'VRNN1':
-         print("Variational RNN Network #1")
-         network = get_vrnn1(used_features,loss_data)
+    if model_type == 'VRNN':
+         print("VRNN-I LSTM Network")
+         network = get_vrnn(used_features,loss_data)
     
          
          
@@ -100,18 +96,17 @@ def get_vaernn(used_features,loss_data):
     # Dense Layer
     h = tf.keras.layers.Dense(inter_dim, activation='tanh', name="Encoder1")(x_in)
     
+    # intermediate dimension 
+    #h = tf.keras.layers.LSTM(input_shape=(None,inter_dim),units=60, activation='relu')(h)
+    h = tf.keras.layers.LSTM(input_shape=(None,60),units=60, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.00, recurrent_dropout=0.00, implementation=1, return_sequences=True, return_state=False, go_backwards=False, stateful=False, unroll=False, name="LSTM1")(h)
+    
     #z_layer
     z_mean = tf.keras.layers.Dense(latent_dim, name="z_mean", activation='linear')(h)
     z_sigma = tf.keras.layers.Dense(latent_dim, name="z_var", activation='softplus',kernel_initializer='zeros')(h)
-    #z = tf.keras.layers.Dense(latent_dim)(h)
     z = tf.keras.layers.Lambda(sampling, name="Sample")([z_mean, z_sigma])
     
-    # Post Z layer LSTM
-    z = tf.keras.layers.LSTM(input_shape=(None,60),units=60, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.00, recurrent_dropout=0.00, implementation=1, return_sequences=True, return_state=False, go_backwards=False, stateful=False, unroll=False, name="LSTM2")(z)
-    
-    
+
     # Reconstruction decoder
-    #decoder1 = tf.keras.layers.TimeDistributed(Dense(features))(z)
     y_pred = tf.keras.layers.Dense(used_features, activation='linear', name="Decoder1")(z)
     
     # Concatonate
@@ -127,7 +122,7 @@ def get_vaernn(used_features,loss_data):
 
 
 # STORN with lambda =  10^-4 loss
-def get_storn1(used_features,loss_data):
+def get_storn(used_features,loss_data):
     
     features = used_features
     inter_dim = 60
@@ -162,7 +157,6 @@ def get_storn1(used_features,loss_data):
     
     
     # Reconstruction decoder
-    #decoder1 = tf.keras.layers.TimeDistributed(Dense(features))(z)
     y_pred = tf.keras.layers.Dense(used_features, activation='linear', name="Decoder1")(d)
     
     # Concatonate
@@ -179,7 +173,7 @@ def get_storn1(used_features,loss_data):
 
 
 # VRNN-I with lambda =  10^-4 loss
-def get_vrnn1(used_features,loss_data):
+def get_vrnn(used_features,loss_data):
     
     features = used_features
     inter_dim = 60
@@ -219,7 +213,6 @@ def get_vrnn1(used_features,loss_data):
     
     
     # Reconstruction decoder
-    #decoder1 = tf.keras.layers.TimeDistributed(Dense(features))(z)
     y_pred = tf.keras.layers.Dense(used_features, activation='linear', name="Decoder1")(zd)
     
     # Concatonate
