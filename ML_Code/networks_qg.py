@@ -96,7 +96,7 @@ def get_vaernn(used_features,loss_data):
     # Dense Layer
     h = tf.keras.layers.Dense(inter_dim, activation='tanh', name="Encoder1")(x_in)
     
-    # intermediate dimension 
+   # Pre Z layer LSTM 
     #h = tf.keras.layers.LSTM(input_shape=(None,inter_dim),units=60, activation='relu')(h)
     h = tf.keras.layers.LSTM(input_shape=(None,60),units=60, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.00, recurrent_dropout=0.00, implementation=1, return_sequences=True, return_state=False, go_backwards=False, stateful=False, unroll=False, name="LSTM1")(h)
     
