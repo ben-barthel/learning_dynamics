@@ -46,12 +46,8 @@ if __name__ == "__main__":
     case_name_test = "QG_Data_beta2.0_rdrag0.1_realization2_24x24"
 
     # LSTM Settings
-    lstm_hist_points = 100
     dt_ml = 0.1
-    if T < 1000:
-        sub_sample = int(np.floor(np.divide(int(20*T),1000)))
-    else:
-        sub_sample = 20
+
 
     #%% Test
     ML_Test_Ensemble(model_type,case_name_test,Nens,Nepochs,dt_ml,basis_type1,compute_pdf,save_full_field,T)
