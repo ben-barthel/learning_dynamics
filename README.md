@@ -3,7 +3,7 @@ This repository includes the code needed to train and test the machine learning 
 
 DATA
 ==================================================================================
-The training and testing trajectories can be found at: https://drive.google.com/drive/folders/14OV56gibnnxzbmWB18K69Da2SZcIrosS?usp=sharing. The training data is contained in the folder "QG_beta2.0_rdrag0.1_realization1_24x24", it contains the reference, coarse, and spectrally corrected nudged trajectories of length 10,000 time units. The test data is contained in "QG_beta2.0_rdrag0.1_realization2_24x24" it contains the reference and coarse data of length 34,000 time units. The following codes assume that these two folders are located in the folder "ML_Data".
+The training and testing trajectories can be found at: https://drive.google.com/drive/folders/14OV56gibnnxzbmWB18K69Da2SZcIrosS?usp=sharing. The training data is contained in the folder "QG_beta2.0_rdrag0.1_realization1_24x24", it contains the reference(_ref), coarse(_coarse), and spectrally corrected nudged (_rnudge16.0) trajectories of length 10,000 time units. The test data is contained in "QG_beta2.0_rdrag0.1_realization2_24x24" it contains the reference and coarse data of length 34,000 time units. The following codes assume that these two folders are located in the folder "ML_Data".
 
 
 TRAINING
